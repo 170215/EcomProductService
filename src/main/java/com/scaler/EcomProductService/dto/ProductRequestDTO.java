@@ -1,0 +1,19 @@
+package com.scaler.EcomProductService.dto;
+
+import lombok.Getter;
+import lombok.Setter;
+//incoming data
+@Getter
+@Setter
+public class ProductRequestDTO {
+
+
+    private String title;
+
+    private double price;
+
+    private String category;
+
+    private String description;
+    private String image;
+}
