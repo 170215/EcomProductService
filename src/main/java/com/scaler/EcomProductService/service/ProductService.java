@@ -5,16 +5,14 @@ import com.scaler.EcomProductService.dto.ProductRequestDTO;
 import com.scaler.EcomProductService.dto.ProductResponseDTO;
 import com.scaler.EcomProductService.model.Product;
 
-import java.util.List;
-
-public interface ProdcutService {
+public interface ProductService {
 
     ProductListResponseDTO getAllProducts();
     ProductResponseDTO getProductById(int id);
 
 
-    public Product createProduct(ProductRequestDTO productRequestDTO);
-    Product deleteProduct(int id);
+    public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO);
+    boolean deleteProduct(int id);
 
     Product updateProduct(int id,Product updateproduct);
 

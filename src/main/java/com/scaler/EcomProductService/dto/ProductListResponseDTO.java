@@ -9,4 +9,8 @@ import java.util.*;
 public class ProductListResponseDTO {
 
     List<ProductResponseDTO> products;
+
+    public ProductListResponseDTO(){
+        this.products=new ArrayList<>();
+    }
 }
