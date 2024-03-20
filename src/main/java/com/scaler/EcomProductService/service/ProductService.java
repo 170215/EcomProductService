@@ -1,5 +1,6 @@
 package com.scaler.EcomProductService.service;
 
+import com.scaler.EcomProductService.exception.*;
 import com.scaler.EcomProductService.dto.ProductListResponseDTO;
 import com.scaler.EcomProductService.dto.ProductRequestDTO;
 import com.scaler.EcomProductService.dto.ProductResponseDTO;
@@ -16,4 +17,5 @@ public interface ProductService {
 
     Product updateProduct(int id,Product updateproduct);
 
+    ProductResponseDTO findProductByTitle(String title) throws InvalidTitleException, ProductNotFoundException;
 }

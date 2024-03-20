@@ -1,5 +1,6 @@
 package com.scaler.EcomProductService.controller;
 
+import com.scaler.EcomProductService.exception.*;
 import com.scaler.EcomProductService.dto.ProductListResponseDTO;
 import com.scaler.EcomProductService.dto.ProductRequestDTO;
 import com.scaler.EcomProductService.dto.ProductResponseDTO;
@@ -20,7 +21,7 @@ public class ProductController {
 
      private final ProductService productService;
     @Autowired
-    public ProductController(@Qualifier("fakestoreproductservice") ProductService prodcutService) {
+    public ProductController(@Qualifier("productservice") ProductService prodcutService) {
         this.productService = prodcutService;
     }
 
@@ -54,6 +55,16 @@ public class ProductController {
         return ResponseEntity.ok(responseDTO);
 
     }
+    @GetMapping("/products/title/{title}")
+
+    public ResponseEntity getProductByTitle(@PathVariable("title") String title) throws ProductNotFoundException {
+
+
+        ProductResponseDTO response = productService.findProductByTitle(title);
+        return ResponseEntity.ok(response);
+
+
+    }
 
     @PostMapping("/products")
     public ResponseEntity createProduct(@RequestBody ProductRequestDTO productRequestDTO){
@@ -68,6 +79,9 @@ public class ProductController {
 
         return ResponseEntity.ok(responseDTO);
     }
+
+
+
 
 
 

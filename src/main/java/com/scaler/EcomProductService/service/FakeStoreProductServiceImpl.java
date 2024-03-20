@@ -1,21 +1,26 @@
 package com.scaler.EcomProductService.service;
 
-import com.scaler.EcomProductService.dto.ProductListResponseDTO;
-import com.scaler.EcomProductService.dto.ProductRequestDTO;
-import com.scaler.EcomProductService.dto.ProductResponseDTO;
+import com.scaler.EcomProductService.client.FakeStoreApiClient;
+import com.scaler.EcomProductService.dto.*;
+import com.scaler.EcomProductService.mapper.ProductMapper;
 import com.scaler.EcomProductService.model.Product;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+//for importing method directly
+import static com.scaler.EcomProductService.mapper.ProductMapper.*;
 
 @Service("fakestoreproductservice")
 public class FakeStoreProductServiceImpl implements ProductService {
     private RestTemplateBuilder restTemplateBuilder;
+    private FakeStoreApiClient fakeStoreApiClient;
 
-    public FakeStoreProductServiceImpl(RestTemplateBuilder restTemplateBuilder) {
+    public FakeStoreProductServiceImpl(RestTemplateBuilder restTemplateBuilder, FakeStoreApiClient fakeStoreApiClient) {
         this.restTemplateBuilder = restTemplateBuilder;
+        this.fakeStoreApiClient = fakeStoreApiClient;
     }
+
 
     @Override
     public ProductListResponseDTO getAllProducts() {
@@ -45,12 +50,10 @@ public class FakeStoreProductServiceImpl implements ProductService {
     @Override
     public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO) {
 
+        FakeStoreProductRequestDTO fakeStoreProductRequestDTO= productRequestToFakeStoreProductRequest(productRequestDTO);
+        FakeStoreProductResponseDTO fakeStoreProductResponseDTO=fakeStoreApiClient.createProduct(fakeStoreProductRequestDTO);
 
-
-        String createProductURL="https://fakestoreapi.com/products/";
-        RestTemplate restTemplate =restTemplateBuilder.build();
-        ResponseEntity<ProductResponseDTO> prductResopnse =restTemplate.postForEntity(createProductURL,productRequestDTO,ProductResponseDTO.class);
-        return prductResopnse.getBody();
+        return fakeStoreProductResponseToProductResponse(fakeStoreProductResponseDTO);
     }
 
     @Override
@@ -65,6 +68,11 @@ public class FakeStoreProductServiceImpl implements ProductService {
 
     @Override
     public Product updateProduct(int id, Product updateproduct) {
+        return null;
+    }
+
+    @Override
+    public ProductResponseDTO findProductByTitle(String name) {
         return null;
     }
 }
